@@ -1,5 +1,4 @@
-<a href="https://ratsgo.github.io/insight-notes"><img src="https://i.imgur.com/S8X8LLC.png" width="400" title="source: imgur.com" /></a>
-
+<a href="https://ratsgo.github.io/insight-notes"><img src="https://i.imgur.com/MvooXby.png" width="400" title="source: imgur.com" /></a>
 
 ## 소개
 
