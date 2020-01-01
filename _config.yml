@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: ratsgo's insight notes
-description: 삶, 문화, 문학과 비즈니스를 생각합니다
+description: NLP research trends and insights
 baseurl: "/insight-notes" # the subpath of your site, e.g. /blog
 url: "https://ratsgo.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -40,7 +40,7 @@ aux_links:
 footer_content:
 
 # Color scheme currently only supports "dark" or nil (default)
-color_scheme: dark
+color_scheme:
 
 # Google Analytics Tracking (optional)
 # e.g, UA-1234567-89

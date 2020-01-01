@@ -7,9 +7,9 @@ permalink: /
 
 ## 소개
 
-이 사이트는 일상 속에서 떠오르는 인사이트를 적어두기 위해 만들었습니다. 삶, 문화, 문학, 사회, 그리고 비즈니스를 생각합니다. 간간히 자연어 처리 리서치 트렌드나 관련 인사이트도 정리해 올려볼까 합니다. 자연어 처리 관련 이론이나 실전 팁 등이 궁금하신 분들은 아래 사이트를 참고하세요.
+이 사이트는 인공지능, 딥러닝, 자연어 처리 등과 관련한 연구 동향이나 제 개인적인 인사이트를 정리해 두기 위해 만들었습니다. 자연어 처리 관련 실전 팁 등이 궁금하신 분들은 ratsgo's nlpbook 사이트를, 음성 인식 관련 내용을 찾아보고 싶으신 분들은 ratsgo's speechbook 사이트를 참고하세요.
 
-[ratsgo's blog](https://ratsgo.github.io){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [ratsgo's nlpbook](https://ratsgo.github.io/nlpbook){: .btn .fs-5 .mb-4 .mb-md-0 }
+[ratsgo's nlpbook](https://ratsgo.github.io/nlpbook){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [ratsgo's speechbook](https://ratsgo.github.io/speechbook){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 
 
