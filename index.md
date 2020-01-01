@@ -1,6 +1,6 @@
 ---
 layout: default
-title: introduction
+title: Introduction
 nav_order: 1
 permalink: /
 ---
