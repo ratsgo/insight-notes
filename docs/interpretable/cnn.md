@@ -2,7 +2,7 @@
 layout: default
 title: Convolutional Neural Networks
 parent: Interpretable AI
-nav_order: 1
+nav_order: 2
 ---
 
 # Convolutional Neural Networks 이해하기
