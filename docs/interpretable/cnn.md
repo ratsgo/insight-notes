@@ -20,7 +20,7 @@ Yoav Goldberg 연구팀은 콘볼루션 필터의 역할을 조사하기 위해 
 
 
 
-<a href="https://imgur.com/wsK1ey4"><img src="https://i.imgur.com/wsK1ey4.png" title="source: imgur.com" /></a>
+<img src="https://i.imgur.com/wsK1ey4.png" title="source: imgur.com" />
 
 
 
@@ -34,7 +34,7 @@ Yoav Goldberg 연구팀은 콘볼루션 필터의 역할을 조사하기 위해 
 
 
 
-<a href="https://imgur.com/vpNSu8u"><img src="https://i.imgur.com/vpNSu8u.png" width="380px" title="source: imgur.com" /></a>
+<img src="https://i.imgur.com/vpNSu8u.png" width="380px" title="source: imgur.com" />
 
 
 
@@ -46,7 +46,7 @@ Yoav Goldberg 연구팀은 콘볼루션 필터의 역할을 조사하기 위해 
 
 
 
-<a href="https://imgur.com/iFlBmAj"><img src="https://i.imgur.com/iFlBmAj.png" width="380px" title="source: imgur.com" /></a>
+<img src="https://i.imgur.com/iFlBmAj.png" width="380px" title="source: imgur.com" />
 
 
 
@@ -60,7 +60,7 @@ Yoav Goldberg 연구팀은 콘볼루션 필터의 역할을 조사하기 위해 
 
 
 
-<a href="https://imgur.com/MewLX9Q"><img src="https://i.imgur.com/MewLX9Q.png" width="300px" title="source: imgur.com" /></a>
+<img src="https://i.imgur.com/MewLX9Q.png" width="300px" title="source: imgur.com" />
 
 
 
