@@ -3,7 +3,7 @@ layout: default
 title: Contolled Generation
 nav_order: 6
 has_children: true
-permalink: /docs/bayesian
+permalink: /docs/generation
 ---
 
 # Contolled Sentence Generation
