@@ -54,7 +54,7 @@ $$\mathbf{ p }_{ k }=\frac { \exp(\mathbf{ x }^{ \top }\mathbf{w}_{k}) }{ \sum _
 
 $k$번째 범주가 정답이라면 $\mathbf{x}^{\top} \mathbf{w}_{k}$ 내적(inner product) 값이 커져야 할 겁니다. 벡터의 내적는 코사인 유사도(cosine similarity)와 밀접한 관련이 있습니다. 이 뉴럴넷이 제대로 학습되고 있다면 $\mathbf{x}$는 정답 범주에 해당하는 템플릿과 벡터공간 상 가까이에 위치하게 됩니다. 
 
-저자들에 따르면 기존 `hard target`은 $\mathbf{x}$를 정답 템플릿과 가깝게 하는 데에만 관심을 둔다고 지적합니다. [소프트맥스-크로스 엔트로피(cross entropy)를 미분](https://ratsgo.github.io/deep%20learning/2017/10/02/softmax)해 보면 그럴 것도 같습니다. 
+저자들에 따르면 기존 `hard target`은 $\mathbf{x}$를 정답 템플릿과 가깝게 하는 데에만 관심을 둔다고 지적합니다. [소프트맥스-크로스 엔트로피(cross entropy)를 미분](https://ratsgo.github.io/deep%20learning/2017/10/02/softmax)해 보면 정답 확률만을 높이는 쪽으로 그래디언트가 구해지기 때문에 그럴 것도 같습니다. 
 
 그런데 레이블 스무딩을 실시하게 되면 양상이 조금 달라집니다. $\mathbf{x}$를 정답 템플릿과 가깝게 하는 한편, $\mathbf{x}$를 오답 템플릿과 **동일한 거리에 있도록** 멀게 만드는 효과를 낸다고 합니다. 
 
@@ -93,11 +93,48 @@ $k$번째 범주가 정답이라면 $\mathbf{x}^{\top} \mathbf{w}_{k}$ 내적(in
 
 ## Temperature Scaling과 비교 : model calibration
 
+[Temperature Scaling](https://arxiv.org/pdf/1706.04599.pdf)(이하 TS로 약칭)은 뉴럴넷이 예측 과정에서 과신(over-confident)하는 경향이 있어, 이를 완화해 일반화 성능을 높이는 기법입니다. 틀릴 때도 강한 확신으로 틀려버리니 이를 좀 막아보자는 겁니다. 학습된 뉴럴넷과 validation set 입력에 대해 다음 방식의 소프트맥스 확률을 구하고, 같은 validation set 레이블에 대해 크로스 엔트로피를 최소화하는 temperature $T$를 찾는 것이 목적입니다. 이렇게 로짓(logit) 벡터를 스케일하면 뉴럴넷의 출력 확률 분포가 상대적으로 uniform해집니다.
 
+
+
+$$\mathbf{ p }_{ k }=\frac { \exp(\mathbf{ x }^{ \top }\mathbf{w}_{k}/T)}{ \sum _{ l=1 }^{ K }{ \exp(\mathbf{ x }^{ \top }\mathbf{ w }_{ l }/T) }}$$
+
+
+
+TS를 제안한 저자들이 노리는 효과는 다음과 같습니다. 가장 이상적인 경우 모델의 출력 소프트맥스 확률의 최댓값이 그대로 accuracy가 되는 상황(아래 그림에서 점선)일 겁니다. 예컨대 모델이 어떤 입력을 받았을 때 $k$번째 범주일 확률이 제일 높다고 예측했는데, 그 값이 0.3이라면 해당 범주가 맞을 가능성(정확도) 역시 0.3으로 낮으므로 예측을 포기하는 것이 나을 겁니다. 그러나 보통의 뉴럴넷은 정확도의 기댓값이 모델의 confidence(출력 소프트맥스 확률)보다 항상 낮은 경향(=`confidence가 accuracy보다 높은 over-confident 문제`)이 있습니다. 이에 TS 저자들은 로짓에 $T$만큼을 나누어주게 된 것입니다. 이렇게 되면 출력 소프트맥스 확률 분포가 약간 uniform(=`최고 높은 확률값이 낮아지고 낮은 값들이 높아진다`)해지게 되면서 calibration이 됩니다. 다시 말해 아래 그림에서 녹색 화살표 방향으로 옮기자는 것입니다.
+
+
+
+<img src="https://i.imgur.com/mX0mNcU.png" width="400px" title="source: imgur.com" />
+
+
+
+**힌튼 교수 연구팀은 레이블 스무딩이 TS와 마찬가지로 calibration 효과를 볼 수 있다고 주장합니다.** TS가 로짓에 $T$를 나눠줘서 스케일하는 방식으로 calibration한다면 레이블 스무딩은 정답 레이블을 조금 깎고 오답 레이블은 조금 높이는 방식으로 calibration을 수행한다고 보는 것입니다. 힌튼 연구팀이 `ResNet-56/CIFAR-100`에 대해 실험을 수행한 결과를 봅시다.
+
+
+
+<img src="https://i.imgur.com/HfzNWKn.png" width="400px" title="source: imgur.com" />
+
+
+
+위 그림에서 제일 아래 쪽에 있는 파란 실선은 레이블 스무딩, TS 모두 실시하지 않은 모델입니다. 위쪽에 있는 녹색 실선은 레이블 스무딩만, 파란색 선은 TS만 실시한 모델입니다. 레이블 스무딩이 TS처럼 모델의 출력을 calibration하고 있음을 간접적으로 확인할 수 있습니다.  
 
 
 
 ## Knowledge Distillation과 비교 : information erase
 
+Knowledge Distillation(이하 KD)은 방대한 teacher network로부터 핵심적인 지식을 전수받은 경량화된 student network를 만들기 위해 제안됐습니다. 그런데 student network는 teacher network의 출력 소프트맥스 확률을 정답 삼아 학습을 하게 되는데요. student network 입장에서는 `soft target`을 가지고 배우는 셈입니다. 힌튼 연구팀은 이런 관점에서 보면 레이블 스무딩이 KD와 밀접한 관련이 있다고 보았습니다. 레이블 스무딩 역시 `soft target`이니까요.
+
+다음은 `CIFAR-10` 데이터셋에 대해 teacher network를 `ResNet-56`, student network를 `AlexNet`로 두고 한 실험 결과입니다. 두번째 아래 그림에서 보라색 (4)에 해당하는 것이 TS만 실시한 student network의 정확도 양상, 붉은색 (3)에 해당하는 것이 레이블 스무딩만 실시한 student network의 정확도 양상입니다. 레이블 스무딩을 실시한 것이 TS보다 정확도가 훨씬 낮은 경향을 보이고 있습니다.
 
 
+
+<img src="https://i.imgur.com/xfqgIpP.png" width="400px" title="source: imgur.com" />
+
+
+
+힌튼 교수 연구팀은 이 원인으로 **정보 손실**을 언급하고 있습니다. 로짓 벡터에 스케일을 하는 TS와는 달리, 레이블 스무딩은 기존 `hard target`에 인위적인 조작을 가해 정보량이 줄어들 수 있습니다. 이와 관련해 저자들이 실험한 결과는 다음 그림과 같습니다. 아래 그림은 위 그림의 (1) teacher network를 대상으로 `hard target`과 teacher network의 로짓(logit) 사이의 상호정보량(mutual information)을 근사한 결과입니다. 레이블 스무딩을 적용한 모델의 상호정보량이 적습니다. 레이블 스무딩 탓에 teacher network가 받아들이는 정보가 감소했음을 방증합니다. 레이블 스무딩으로 teacher network의 일반화 성능을 높일 수 있다 하더라도, KD에 있어서는 이렇게 학습 과정에서 손실이 발생한 그대로 따라하는 student network의 성능이 떨어질 수 있음을 보여준 셈입니다.
+
+
+
+<img src="https://i.imgur.com/jkWeLGq.png" width="400px" title="source: imgur.com" />
