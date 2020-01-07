@@ -2,6 +2,7 @@
 layout: default
 title: The Bottom-up Evolution of Representations in the Transformer
 parent: Transformer
+grand_parent: Interpretable AI
 permalink: /docs/interpretable/transformer/bottom
 nav_order: 1
 ---

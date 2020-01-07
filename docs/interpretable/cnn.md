@@ -3,6 +3,7 @@ layout: default
 title: Convolutional Neural Networks
 parent: Interpretable AI
 nav_order: 2
+permalink: /docs/interpretable/cnn
 ---
 
 # Convolutional Neural Networks 이해하기

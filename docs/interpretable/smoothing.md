@@ -3,6 +3,7 @@ layout: default
 title: Label Smoothing
 parent: Interpretable AI
 nav_order: 3
+permalink: /docs/interpretable/smoothing
 ---
 
 # Label Smoothing 이해하기
