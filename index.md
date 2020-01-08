@@ -23,7 +23,7 @@ permalink: /
 
 ## 라이센스
 
-[MIT license](https://github.com/ratsgo/insight-notes/blob/master/LICENSE)를 따릅니다. **무단전재 및 재배포를 적극 권장합니다.** 상업적 활용 역시 가능합니다. 
+[BY-NC-ND license](https://github.com/ratsgo/insight-notes/blob/master/LICENSE)를 따릅니다. 원 저작자와 출처를 표시해야 하며 영리 목적으로 이용할 수 없습니다. 이 저작물을 변형해 공유할 수 없습니다.
 
 
 
