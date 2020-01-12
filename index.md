@@ -23,7 +23,11 @@ permalink: /
 
 ## 라이센스
 
-[BY-NC-ND license](https://github.com/ratsgo/insight-notes/blob/master/LICENSE)를 따릅니다. 원 저작자와 출처를 표시해야 하며 영리 목적으로 이용할 수 없습니다. 이 저작물을 변형해 공유할 수 없습니다.
+[CC BY-NC-SA 3.0 license](https://github.com/ratsgo/insight-notes/blob/master/LICENSE)를 따릅니다. 다음 사항을 지키면 본 사이트에 있는 저작물들을 별도 허락 없이 자유롭게 사용할 수 있습니다.
+
+- **저작권정보 표시** : 저작물 이용시 본 블로그 주소와 저작자(`ratsgo`)를 표시해야 합니다
+- **비영리** : 이 저작물은 영리 목적으로 이용할 수 없습니다.
+- **동일조건 변경 허락** : 이 저작물을 변경(2차 저작물 작성 포함) 가능하나 자신이 만든 저작물에 본 저작물과 같은 이용조건(`CC BY-NC-SA 3.0`)을 적용해야 합니다. 
 
 
 
