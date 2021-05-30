@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Life & Society
-nav_order: 7
+nav_order: 5
 has_children: true
 permalink: /docs/life
 ---

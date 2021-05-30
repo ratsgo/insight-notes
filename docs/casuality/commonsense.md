@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Commonsense
-parent: Casuality & Reasoning
+parent: Natural Language Processing
 nav_order: 1
-permalink: /docs/causality/commonsense
+permalink: /docs/nlp/commonsense
 ---
 
 # 딥러닝에 상식을 가르칠 수 있을까
