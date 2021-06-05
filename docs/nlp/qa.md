@@ -240,13 +240,14 @@ RAG 저자들은 크게 두 가지 변형을 만들었습니다. 첫번째는 `R
 3. 2에서 구한 확률 분포 시퀀스를 각 time-step마다 합친다(token-level marginalize).
 4. 이를 $N$번 반복한다.
 
-`RAG-Sequence`을 도식화한 그림은 그림12입니다. 그림12에서 최상단에 위치한 회색 네모는 Top1 검색 문서($z_1$)이 주어졌을 때 첫번째 토큰 확률 분포입니다(차원수는 어휘 집합 크기 $\|V\|$). 최상단 보라색 네모는 Top2 문서($z_2$)가 주어졌을 때 첫번째 토큰 확률 분포입니다. 이를 $K$개 문서 모두에 대해 구하고, 각 확률 분포를 합칩니다(marginalize, 즉 element-wise sum한 뒤 합이 1이 되도록 normalize). 그리고 이 모든 과정을 $N$번 반복합니다.
+`RAG-Token`을 도식화한 그림은 그림12입니다. 그림12에서 최상단에 위치한 회색 네모는 Top1 검색 문서($z_1$)이 주어졌을 때 첫번째 토큰 확률 분포입니다(차원수는 어휘 집합 크기 $\|V\|$). 최상단 보라색 네모는 Top2 문서($z_2$)가 주어졌을 때 첫번째 토큰 확률 분포입니다. 이를 $K$개 문서 모두에 대해 구하고, 각 확률 분포를 합칩니다(marginalize, 즉 element-wise sum한 뒤 합이 1이 되도록 normalize). 그리고 이 모든 과정을 $N$번 반복합니다.
 
 
 ## **그림12** RAG-Token
 {: .no_toc .text-delta }
 <img src="https://i.imgur.com/FVVB2CJ.png" width="200px" title="source: imgur.com" />
 
+만약 시퀀스 길이 $N$이 1이라면 `RAG-Sequence`와 `RAG-Token`은 동치(equivalent)입니다.
 
 RAG 저자들은 검색 모델로 [DPR](https://arxiv.org/pdf/2004.04906), 생성 모델로 BART를 사용했습니다. 생성 모델이 생성한 결과와 정답 답변 토큰 시퀀스 사이의 네거티브 로그라이클리후드를 최소화하는 방식으로 검색 모델, 생성 모델을 동시에 학습했습니다. 이 때 학습 대상은 DPR의 쿼리 인코더, BART입니다. 다시 말해 DPR의 문서 인코더는 고정해 두었습니다.
 
