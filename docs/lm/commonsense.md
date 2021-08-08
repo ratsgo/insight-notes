@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Commonsense
-parent: Natural Language Processing
+parent: Language Model
 nav_order: 1
-permalink: /docs/nlp/commonsense
+permalink: /docs/lm/commonsense
 ---
 
 # 딥러닝에 상식을 가르칠 수 있을까
