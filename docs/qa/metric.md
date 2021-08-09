@@ -31,35 +31,48 @@ permalink: /docs/qa/metric
 
 # Loss functions
 
-메트릭 러닝의 손실 함수(loss function)는 아래처럼 다양하게 불리고 있습니다. 용어 정리 차원에서 기록해 둡니다.
+메트릭 러닝의 손실 함수(loss function)는 아래처럼 다양하게 불리고 있습니다. 용어 정리 차원에서 기록해 둡니다. 자세한 내용은 [이 글](https://gombru.github.io/2019/04/03/ranking_loss)을 참고하시면 좋을 것 같습니다.
 
 - **랭킹 로스(ranking loss)** : 데이터 인스턴스를 줄세운다(ranking)는 취지를 강조한 용어, 정보 검색(information retreival) 분야에서 이 용어 사용.
 - **컨트라스티브 로스(contrastive loss)** : 두 개 혹은 그 이상의 데이터 인스턴스를 두고 손실을 계산한다는 취지에서 붙은 용어(contrastive: 대조하는).
-- 기타 : 마진 로스(margin loss), 힌지 로스(hinge loss) 등.
+- 기타 : 마진 로스(margin loss), 힌지 로스(hinge loss) 등으로도 불림. 랭킹 로스든 컨트라스티브 로스든 손실을 구할 때 마진(margin) $m$을 반영하기 때문. 
 
 
 ## Triplet ranking loss
 
-그림1은 랭킹 로스 가운데 널리 쓰이는 **트리플렛 랭킹 로스(triplet ranking loss)**를 도식화한 것입니다. 우선 앵커(anchor) 샘플을 선정합니다. 보유 데이터 가운데 하나 뽑은 결과입니다. 그림1에서 포지티브(positive)는 앵커와 유사한 혹은 관련성이 높은 샘플을 가리킵니다. 네거티브(negative)는 앵커와 유사하지 않은 혹은 관련성이 없는 샘플을 의미합니다.
+그림1은 랭킹 로스 가운데 널리 쓰이는 **트리플렛 랭킹 로스(triplet ranking loss)**를 도식화한 것입니다. 우선 앵커(anchor, $r_a$) 샘플을 선정합니다. 보유 데이터 가운데 하나 뽑은 결과입니다. 그림1에서 포지티브(positive, $r_p$)는 앵커와 유사한 혹은 관련성이 높은 샘플을 가리킵니다. 네거티브(negative, $r_n$)는 앵커와 유사하지 않은 혹은 관련성이 없는 샘플을 의미합니다.
 
 ## **그림1** triplet ranking loss
 {: .no_toc .text-delta }
 <img src="https://i.imgur.com/q22suVg.png" width="500px" title="source: imgur.com" />
 
+## **수식1** triplet ranking loss
+{: .no_toc .text-delta }
+
+$$
+L(r_a, r_p, r_n) = \max(0, m+\text{d}(r_a, r_p) - \text{d}(r_a, r_n))
+$$
+
 트리플렛 랭킹 로스의 계산 과정과 지향하는 바를 직관적으로 설명하면 이렇습니다. 
 
-- 앵커 샘플을 모델(그림1에서 CNN이라고 적었지만 그 어떤 딥러닝 모델도 가능함)에 넣어 모델 중간 혹은 최종 출력 결과를 가지고 앵커 샘플의 representation으로 삼음.
-- 포지티브, 네거티브 샘플 역시 같은 방식으로 representation을 만듬.
-- 앵커-포지티브, 앵커-네거티브의 거리 혹은 유사도를 계산함.
-- 앵커-포지티브는 거리가 가깝게(=유사도가 높게), 앵커-네거티브는 거리가 멀게(=유사도가 낮게) representation과 모델을 업데이트.
-- 앵커-포지티브, 앵커-네거티브 업데이트는 한 스텝에서 동시에 이루어짐.
+1. 앵커 샘플을 모델(그림1에서 CNN이라고 적었지만 그 어떤 딥러닝 모델도 가능함)에 넣어 모델 중간 혹은 최종 출력 결과를 가지고 앵커 샘플의 representation으로 삼음.
+2. 포지티브, 네거티브 샘플 역시 같은 방식으로 representation을 만듬.
+3. 앵커-포지티브, 앵커-네거티브의 거리 혹은 유사도를 계산함.
+4. 앵커-포지티브는 거리가 가깝게(=유사도가 높게), 앵커-네거티브는 거리가 멀게(=유사도가 낮게) representation과 모델을 업데이트.
+5. 앵커-포지티브, 앵커-네거티브 업데이트는 한 스텝에서 동시에 이루어짐.
+
+한편 수식1에서 $m$은 마진(margin)입니다. 마진의 효과는 다음과 같습니다.
+
+- 포지티브 쌍과 네거티브 쌍 사이의 거리를 최소 $m$ 이상으로 벌려서 구분이 잘 되도록 합니다.
+- 특정 포지티브 쌍과 네거티브 쌍 사이의 거리가 $m$ 이상일 때 손실을 0으로 무시함으로써 모델로 하여금 다른 쌍 사이의 차이를 벌리는 데 집중하도록 유도해 성능을 개선합니다.
+
 
 
 ## Negative log-likelihood
 
-일반적인 딥러닝 모델 학습에 쓰이는 네거티브 로그라이클리후드(the negative log-likelihood)는 엄밀히 말해 랭킹 로스는 아닙니다만, **샘플 쌍 사이의 유사도에 적용할 경우** 이 역시 메트릭 러닝에 사용될 수 있습니다. 수식1과 같이 모델의 최종 출력인 유사도 벡터에 네거티브 로그라이클리후드를 계산하고 이를 최소화하면 포지티브 쌍(positive pair)의 유사도는 높이고 네거티브 쌍(negative pair)의 유사도는 낮추게 됩니다.
+일반적인 딥러닝 모델 학습에 쓰이는 네거티브 로그라이클리후드(the negative log-likelihood)는 엄밀히 말해 랭킹 로스는 아닙니다만, **샘플 쌍 사이의 유사도에 적용할 경우** 이 역시 메트릭 러닝에 사용될 수 있습니다. 수식2와 같이 모델의 최종 출력인 유사도 벡터에 네거티브 로그라이클리후드를 계산하고 이를 최소화하면 포지티브 쌍(positive pair)의 유사도는 높이고 네거티브 쌍(negative pair)의 유사도는 낮추게 됩니다.
 
-## **수식1** the negative log-likelihood
+## **수식2** the negative log-likelihood
 {: .no_toc .text-delta }
 <img src="https://i.imgur.com/HNXuaXk.png" width="400px" title="source: imgur.com" />
 
