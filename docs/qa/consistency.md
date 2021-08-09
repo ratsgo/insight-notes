@@ -25,8 +25,7 @@ Consistency training이란 입력 또는 은닉 상태에 노이즈를 추가해
 
 # Concept
 
-Consistency training이란 레이블(label)이 없는 데이터의 입력 또는 은닉 상태(hidden state)에 노이즈(noise)가 추가되어도 모델이 강건한 예측을 할 수 있도록 학습하는 방법론입니다. 다시 말해 *unlabeled data* 원본의 모델 출력과 여기에 노이즈가 추가된 데이터의 출력이 유사하도록 제약을 만드는 것입니다. 보통 *labeled data*의 양이 적기 때문에 이를 보완하기 위한 방법 같다는 생각이 듭니다.
-
+Consistency training이란 레이블(label)이 없는 데이터의 입력 또는 은닉 상태(hidden state)에 노이즈(noise)가 추가되어도 모델이 강건한 예측을 할 수 있도록 학습하는 방법론입니다. 다시 말해 *unlabeled data* 원본의 모델 출력과 여기에 노이즈가 추가된 데이터의 출력이 유사하도록 제약을 만드는 것입니다. 이 글에서 소개하는 Dialogue History Perturbation는 입력에, SimCSE는 은닉 상태에서 노이즈를 추가하는 기법입니다.
 
 # Dialogue History Perturbation
 
