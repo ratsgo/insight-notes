@@ -26,7 +26,7 @@ permalink: /docs/qa/metric
 # Metric Learning: Concept
 
 
-**메트릭 러닝(metric learning)**이란 데이터의 표상(representation)을 학습하는 방법의 일종입니다. 두 데이터 representation 사이의 거리(distance) 혹은 유사도(similarity)를 수치화하기 위해 다양한 지표(metric)을 사용한다는 취지에서 이런 이름이 붙은 것 같습니다. 의미상 유사한 데이터는 그 representation의 거리가 가깝게(=유사도가 높게) 업데이트하는 것이 핵심 아이디어입니다.
+**메트릭 러닝(metric learning)**이란 데이터의 표상(representation)을 학습하는 방법의 일종입니다. 두 데이터 representation 사이의 거리(distance) 혹은 유사도(similarity)라는 지표(metric)를 손실(loss)에 반영한다는 취지에서 이런 이름이 붙은 것 같습니다. 의미상 유사한 데이터는 그 representation의 거리가 가깝게(=유사도가 높게) 업데이트하는 것이 핵심 아이디어입니다.
 
 
 # Loss functions
