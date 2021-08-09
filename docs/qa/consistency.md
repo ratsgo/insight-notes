@@ -64,7 +64,7 @@ P = \max(0, m + S_\text{adv} - S_\text{orig})
 $$
 
 
-수식1은 **네거티브 쌍에 대응하는 pairwise ranking loss**입니다. Pertubation dialogue history에 대응하는 스코어($S_\text{adv}$)와 Original dialogue history 스코어($S_\text{orig}$) 사이의 차이가 마진($m$) 이상이 되도록 유도합니다. 이와 관련해 자세한 내용은 앞선 챕터인 [Metric learning](http://ratsgo.github.io/insight-notes/docs/qa/metric)과 [이 글](https://gombru.github.io/2019/04/03/ranking_loss)을 참고하시면 좋을 것 같습니다.
+수식1은 **네거티브 쌍에 대응하는 pairwise ranking loss**와 깊은 관련이 있습니다. Pertubation dialogue history에 대응하는 스코어($S_\text{adv}$)와 Original dialogue history 스코어($S_\text{orig}$) 사이의 차이가 마진($m$) 이상이 되도록 유도합니다. 이와 관련해 자세한 내용은 앞선 챕터인 [Metric learning](http://ratsgo.github.io/insight-notes/docs/qa/metric)과 [이 글](https://gombru.github.io/2019/04/03/ranking_loss)을 참고하시면 좋을 것 같습니다.
 
 사용자의 현재 질문을 쿼리(query)로 하고 사용자-AI 간 대화 이력을 문서(document)로 하는 검색 모델을 학습한다고 가정해 봅시다. 수식1의 직관적 의미는 이렇습니다. Pertubation dialogue history 스코어 $S_\text{adv}$는 사용자의 현재 질문과 Pertubation이 수행된 대화 이력 사이의 유사도 점수입니다. Original dialogue history 스코어 $S_\text{orig}$는 사용자의 현재 질문과 이 질문의 직전 대화 이력 사이의 유사도 점수입니다. 
 
