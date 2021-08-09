@@ -10,7 +10,7 @@ permalink: /docs/qa/ssl
 # Semi-supervised learning
 {: .no_toc }
 
-준지도학습(semi-supervised learning)이란 레이블이 달려 있는 데이터와 레이블이 달려있지 않은 데이터를 동시에 사용해서 더 좋은 모델을 만드는 일련의 방법들을 가리킵니다. 이 글에서는 Unsupervised Data Augmentation(UDA)와 MixMatch 등 최근 제안된 준지도학습 기법들을 살펴봅니다.
+준지도학습(semi-supervised learning)이란 레이블이 달려 있는 데이터와 레이블이 달려있지 않은 데이터를 동시에 사용해서 더 좋은 모델을 만드는 일련의 방법들을 가리킵니다. 이전 글에서 살펴본 Data Augmentation과 준지도학습 모두 레이블된 데이터의 의존도를 줄인다는 점에서 동일한 목적을 가지고 있으나, Data Augmentation은 기존에 없는 새로운 데이터를 자동적으로 생성하는 방법에 집중한다는 특징을 가집니다. 이 글에서는 Unsupervised Data Augmentation(UDA)와 MixMatch 등 최근 제안된 준지도학습 기법들을 살펴봅니다.
 {: .fs-4 .ls-1 .code-example }
 
 
