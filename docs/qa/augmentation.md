@@ -58,7 +58,7 @@ Back Translation 역시 텍스트 분야에서 널리 사용되는 Data Augmenta
 
 ## **그림1** Back Translation
 {: .no_toc .text-delta }
-<img src="https://i.imgur.com/vVTr5xd.png" width="300px" title="source: imgur.com" />
+<img src="https://i.imgur.com/vVTr5xd.png" width="700px" title="source: imgur.com" />
 
 잘 학습된 번역 모델이 있다면 Back Translation을 수행한다고 해도 원래 문장의 의미를 보존한 상태로 새로운 문장을 만들 수 있을 겁니다. 한편 번역 모델을 디코딩할 때 탑-$k$ 샘플링 등 다양성(diversity)을 높이는 기법을 적용한다면 좀 더 다양한 문장으로 augmentation을 수행할 수 있습니다.
 
