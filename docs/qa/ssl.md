@@ -70,11 +70,10 @@ MixMatch의 학습 과정은 다음과 같습니다. 아래에서 1\~3까지가 
 1. **data augmentation** : *labeled data*에 대해서는 1회, *unlabeled data*에 대해서는 $K$회 augmentation을 수행합니다.
 2. **label guessing** : 1에서 augmentation된 *unlabeled data*를 현 스텝의 모델 $\theta$에 넣어 범주 확률을 계산합니다. 이를 $K$개 인스턴스 모두에 대해 각각 수행하고 평균을 취합니다.
 3. **sharpening** : 2에서 구한 범주 확률 평균에 temperature scaling을 수행해 분포를 뾰족하게 만듭니다. temperature $t$가 0에 가까울 수록 이 분포는 원핫(one-hot) 레이블처럼 됩니다. 2, 3을 수행한 확률 분포를 *guessed label*이라고 합니다. 이렇게 만든 *guessed label*은 $K$개 인스턴스 모두에 동일하게 붙여줍니다.
-4. **mixup** : 지금까지 만든 모든 input과 label을 mixup합니다. 그 대상과 갯수는 다음과 같습니다.
-  - (*original labeled input*, *original label*) $\times$ batch size
+4. **mixup** : 지금까지 만든 input과 label을 mixup합니다. 그 대상과 갯수는 다음과 같습니다.
   - (*augmented labeled input*, *original label*) $\times$ batch size : *labeled data* 인스턴스 하나당 1회만 augmentation
   - (*augmented unlabeled input*, *guessed label*) $\times$ batch size $\times K$ : *unlabeled data*에 대해서는 $K$회 augmentation
-5. **loss** : supervised 인스턴스에 대해서는 Cross Entropy, unsupervised 인스턴스에 대해서는 L2 loss를 각각 구하고 더해줍니다. 
+5. **loss** : supervised 인스턴스에 대해서는 Cross Entropy, unsupervised 인스턴스에 대해서는 L2 loss(4번)를 각각 구하고 더해줍니다. 
 
 개인적으로는 MixMatch가 강력한 이유는 위의 과정 4번에 있는 것 같습니다. *labeled/unlabled input*, *original/guessed label*을 넘나들며 다양한 mixing이 이뤄지기 때문입니다. 레이블 정보가 *unlabeled data*에 전파되는 한편 *original/augmented sample*들이 서로 영향을 주고 받습니다. 이 과정에서 이전보다 강건한 모델이 탄생하는 것 아닌가 합니다. MixMatch가 노리는 효과를 저자들이 정리한 내용은 다음과 같습니다.
 
