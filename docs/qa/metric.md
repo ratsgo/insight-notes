@@ -191,7 +191,8 @@ Inverse Cloze Task는 [Lee et al.(2019)](https://arxiv.org/abs/1906.00300)가 �
 
 메트릭 러닝의 성능을 높이기 위해서는 다양한 기법을 활용할 수 있습니다. 메트릭 러닝과 직접 관련은 없지만, 성능 개선과 관련해 좀 더 확장해볼 수 있는 개념으로 다음과 같은 접근이 있습니다. 각 장에서 살펴봅니다.
 
-- **[Consistency training](http://ratsgo.github.io/insight-notes/docs/qa/consistency)** : 입력, 히든에 변화를 주어서 강건한 모델 만들기
+- **[Data augmentation](http://ratsgo.github.io/insight-notes/docs/qa/augmentation)** : 레이블이 존재하는 데이터에 변화를 주어서 원본 데이터와 같은 레이블을 가지는 새로운 데이터를 만들어 데이터를 불리고 이를 통해 모델 성능 증대 도모하기
+- **[Consistency training](http://ratsgo.github.io/insight-notes/docs/qa/consistency)** : 입력(input), 히든 스테이트(hidden state)에 노이즈 등 작은 변화를 주어서 강건한 모델 만들기
 - **[Semi-supervised learning](http://ratsgo.github.io/insight-notes/docs/qa/ssl)** : 다량의 unlabeled dataset을 활용해서 소량의 labeled dataset 효과를 극대화 하기
 
 

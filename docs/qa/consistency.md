@@ -3,7 +3,7 @@ layout: default
 title: Consistency training
 parent: Retrieval model
 grand_parent: Question Answering
-nav_order: 2
+nav_order: 3
 permalink: /docs/qa/consistency
 ---
 
@@ -32,56 +32,7 @@ Consistency training이란, label이 존재하지 않는 데이터의 입력 또
 자연어 처리에서 대표적으로 쓰이는 Consistency training 방법은 학습 데이터 문장을 뻥튀기하는 'data augmentation', 히든에 노이즈를 주는 'pertubation' 등 방식이 있습니다. 전자는 EDA, back-translation 등이 있고 후자는 
 
 
-# Data Augmentation
-
-## Easy Data Augmentation
-
-- Learning from Perturbations : 상환 님 시도와 연관
-
-## **그림1** Learning from Perturbations
-{: .no_toc .text-delta }
-<img src="https://i.imgur.com/zy1hdrK.png" width="300px" title="source: imgur.com" />
-
-## Back Translation
-
-- UDA에서도 사용
-
-## **그림1** Back Translation
-{: .no_toc .text-delta }
-<img src="https://i.imgur.com/vVTr5xd.png" width="300px" title="source: imgur.com" />
-
-## TF-IDF 활용한 키워드 대치
-
-- UDA에서 사용
-
-## LM 파인튜닝
-
-- Conditional LM : Kumar, 학습 입력/프롬프트 입력 명시
-- Query Converter와 연관, 학습 입력/프롬프트 입력 명시
-
-## SentAugment
-
-- Self-training
-
-## **그림1** SentAugment
-{: .no_toc .text-delta }
-<img src="https://i.imgur.com/far3fxb.png" width="300px" title="source: imgur.com" />
-
-
-## 질의-답변 쌍 자동으로 생성
-
-- consistency와 직접 연관 없어 제외해야할듯
-
-[PAQ](https://arxiv.org/pdf/2102.07033) 저자들은 위키피디아 문서들을 가지고 자동으로 질문-답변 쌍을 만들기도 했습니다. 물론 사람이 만든 것 대비 품질은 낮겠지만, 이렇게 자동으로 만들어진 문서-질문-답변 데이터는 여러모로 쓰임이 많을거라 생각합니다.
-
-## **그림13** Knowledge Graph vs Language Model
-{: .no_toc .text-delta }
-<img src="https://i.imgur.com/Lt2HCVR.png" width="600px" title="source: imgur.com" />
-
-
-# 히든에 노이즈 주기
-
-## SimCSE
+# SimCSE
 
 
 ## **그림1** supervised setting
@@ -98,12 +49,6 @@ Consistency training이란, label이 존재하지 않는 데이터의 입력 또
 
 # References
 
-- [Wei, J., & Zou, K. (2019). Eda: Easy data augmentation techniques for boosting performance on text classification tasks. arXiv preprint arXiv:1901.11196.](https://arxiv.org/pdf/1901.11196)
-- [Zhou, W., Li, Q., & Li, C. (2021). Learning from Perturbations: Diverse and Informative Dialogue Generation with Inverse Adversarial Training. arXiv preprint arXiv:2105.15171.](https://arxiv.org/pdf/2105.15171)
-- [Xie, Q., Dai, Z., Hovy, E., Luong, M. T., & Le, Q. V. (2019). Unsupervised data augmentation for consistency training. arXiv preprint arXiv:1904.12848.](https://arxiv.org/pdf/1904.12848)
-- [Kumar, V., Choudhary, A., & Cho, E. (2020). Data augmentation using pre-trained transformer models. arXiv preprint arXiv:2003.02245.](https://arxiv.org/pdf/2003.02245)
-- [Du, J., Grave, E., Gunel, B., Chaudhary, V., Celebi, O., Auli, M., ... & Conneau, A. (2020). Self-training improves pre-training for natural language understanding. arXiv preprint arXiv:2010.02194.](https://arxiv.org/pdf/2010.02194)
-- [Lewis, P., Wu, Y., Liu, L., Minervini, P., Küttler, H., Piktus, A., ... & Riedel, S. (2021). Paq: 65 million probably-asked questions and what you can do with them. arXiv preprint arXiv:2102.07033.](https://arxiv.org/pdf/2102.07033)
 - [Gao, T., Yao, X., & Chen, D. (2021). SimCSE: Simple Contrastive Learning of Sentence Embeddings. arXiv preprint arXiv:2104.08821.](https://arxiv.org/pdf/2104.08821)
 
 

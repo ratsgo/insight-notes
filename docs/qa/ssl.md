@@ -3,7 +3,7 @@ layout: default
 title: Semi-supervised learning
 parent: Retrieval model
 grand_parent: Question Answering
-nav_order: 3
+nav_order: 4
 permalink: /docs/qa/ssl
 ---
 
