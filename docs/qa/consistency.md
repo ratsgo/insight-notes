@@ -10,7 +10,7 @@ permalink: /docs/qa/consistency
 # Consistency training
 {: .no_toc }
 
-Consistency training이란
+Consistency training이란 입력 또는 은닉 상태에 노이즈를 추가해 모델의 성능 높이는 기법입니다. 검색 모델 구축 관점에서 도움이 될 만한 기법을 소개합니다.
 {: .fs-4 .ls-1 .code-example }
 
 
@@ -25,11 +25,7 @@ Consistency training이란
 
 # Concept
 
-
-Consistency training이란, label이 존재하지 않는 데이터의 입력 또는 은닉상태(hidden state)에 noise가 추가되어도 강건한 예측을 할 수 있도록 학습하는 방법론입니다. 즉, unlabeled 데이터와 noise가 추가된 unlabeled 데이터의 예측 분포가 유사하도록 제약을 만드는 것입니다. Noise는 대표적으로 Gaussian noise가 적용됩니다. 적은 labeled 데이터로 학습한 모델이 unlabeled 데이터를 예측할 경우 발생하는 불확실성을 보완하기 위한 방법인 것 같습니다. 
-
-
-자연어 처리에서 대표적으로 쓰이는 Consistency training 방법은 학습 데이터 문장을 뻥튀기하는 'data augmentation', 히든에 노이즈를 주는 'pertubation' 등 방식이 있습니다. 전자는 EDA, back-translation 등이 있고 후자는 
+Consistency training이란 레이블(label)이 없는 데이터의 입력 또는 은닉 상태(hidden state)에 노이즈(noise)가 추가되어도 모델이 강건한 예측을 할 수 있도록 학습하는 방법론입니다. 다시 말해 *unlabeled data* 원본의 모델 출력과 여기에 노이즈가 추가된 데이터의 출력이 유사하도록 제약을 만드는 것입니다. 보통 *labeled data*의 양이 적기 때문에 이를 보완하기 위한 방법 같다는 생각이 듭니다.
 
 
 # Dialogue History Perturbation
@@ -88,14 +84,29 @@ $$
 
 # SimCSE
 
+[SimCSE](https://arxiv.org/pdf/2104.08821)는 문장 인코더(sentence encoder)의 새로운 학습 방법을 제안했습니다. 여기서 문장 인코더는 문장을 벡터로 임베딩하는 역할을 수행합니다. 우선 레이블이 있는 데이터가 있는 경우(supervised setting) 먼저 살펴보겠습니다. 
 
-## **그림1** supervised setting
+Natural Language Inference(NLI) 데이터를 가지고 문장 인코더를 학습하는 상황이라고 가정해 보겠습니다. 그림2처럼 premise를 벡터화하는 인코더와 hypothesis를 벡터화하는 인코더를 따로 둡니다. supervised setting이기 때문에 우리는 NLI 데이터의 레이블 정보 역시 활용할 수 있습니다. 
+
+레이블이 entailment인 premise(`Two dogs are running.`)와 hypothesis(`There are animals outdoors`)를 포지티브 쌍으로 둡니다. 레이블이 contradiction인 premise(`Two dogs are running.`), hypothesis(`The pets are sitting on a couch.`)는 네거티브 쌍 취급합니다. 아울러 [In-batch-training](http://ratsgo.github.io/insight-notes/docs/qa/metric#in-batch-training)를 사용하기 때문에 premise와 전혀 관계 없는 hypothesis(`There is a man.`, `A kid is skateboarding.` 등) 역시 네거티브 쌍이 됩니다.
+
+## **그림2** supervised setting
 {: .no_toc .text-delta }
 <img src="https://i.imgur.com/RczwsgU.png" width="600px" title="source: imgur.com" />
 
-## **그림1** unsupervised setting
+**주의!!**
+물론 NLI 데이터 가지고 entailment, contradiction, neutral 3개 범주 가운데 하나를 맞추는 분류기를 학습할 수 있습니다. 하지만 동일한 데이터로도 "모델의 출력이 범주 확률이냐, 유사도/거리이냐", "레이블을 범주로 주느냐, positive/negative로 주느냐"에 따라서 본질적으로 다른 모델이 탄생하게 됩니다. [이전 챕터](http://ratsgo.github.io/insight-notes/docs/qa/metric#supervised-setting) 참고.
+{: .code-example }
+
+[SimCSE](https://arxiv.org/pdf/2104.08821)의 핵심 기여는 unsupervised setting입니다. 그림3과 같습니다. 그림2와 동일한 NLI 데이터를 쓴다고 해도 레이블 없이 문장만 가지고 학습해야 합니다. 다시 말해 포지티브 쌍이 전혀 존재하지 않는다는 뜻입니다.
+
+[SimCSE](https://arxiv.org/pdf/2104.08821) 저자들은 포지티브 쌍을 그림3처럼 부여했습니다. **드롭아웃(dropout)을 켠 채로 동일한 문장을 두 번 순전파(forward computation)하고 이 둘의 representation을 포지티브 쌍으로 간주합니다.** 다시 말해 드롭아웃을 노이즈로 하는 Consistency training인 셈입니다. 한편 unsupervised setting에서 네거티브 쌍은 배치 내 특정 인스턴스(`The dogs are running.`)와 해당 인스턴스를 제외한 모든 인스턴스(`A man surfing on the sea` 등)가 됩니다.
+
+## **그림3** unsupervised setting
 {: .no_toc .text-delta }
-<img src="https://i.imgur.com/Rq0nPaM.png" width="600px" title="source: imgur.com" />
+<img src="https://i.imgur.com/Rq0nPaM.png" width="400px" title="source: imgur.com" />
+
+한편 [SimCSE](https://arxiv.org/pdf/2104.08821) 저자들 역시 모든 실험에서 [In-batch-training](http://ratsgo.github.io/insight-notes/docs/qa/metric#in-batch-training) + [네거티브 로그라이클리후드(negative log-likelihood)](http://ratsgo.github.io/insight-notes/docs/qa/metric#negative-log-likelihood) 조합을 사용하였습니다. 이밖에 학습 디테일 역시 참고하기 좋은 것 같습니다.
 
 
 ---
